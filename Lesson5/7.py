@@ -1,0 +1,11 @@
+a = {1,22,22,3}
+a = set()
+a.add(2)
+print(a)
+a.update([1,2,3,4,5])
+print(a)
+a.remove(1)
+print(a)
+a.discard(7)
+a.pop()
+print(a)
