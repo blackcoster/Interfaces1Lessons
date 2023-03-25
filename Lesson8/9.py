@@ -5,5 +5,5 @@ class Test(str):
     def __len__(self):
         return 25
 
-stroka = Test('')
+stroka = Test('3535рыиар')
 print(len(stroka))
