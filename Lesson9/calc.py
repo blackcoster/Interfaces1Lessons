@@ -12,5 +12,5 @@ def div(num1,num2):
         return 'нельзя'
     return num1//num2
 
-if __name__ =='__main__':
-    print('я запущен как основной файл')
+# if __name__ =='__main__':
+#     print('я запущен как основной файл')
