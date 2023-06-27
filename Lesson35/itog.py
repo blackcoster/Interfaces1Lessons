@@ -1,11 +1,13 @@
 import sys
 
-from PyQt5 import QtWidgets,QtPrintSupport,QtGui,QtCore
+from PyQt5 import QtWidgets, QtPrintSupport, QtGui, QtCore
+
+
 
 class Window(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
-        self.setFixedSize(400,350)
+        self.setFixedSize(400, 350)
         self.setWindowTitle('Печать')
         self.vbox = QtWidgets.QVBoxLayout(self)
         self.textEdit = QtWidgets.QTextEdit()
@@ -14,7 +16,7 @@ class Window(QtWidgets.QWidget):
         self.hbox = QtWidgets.QHBoxLayout()
         self.btn1 = QtWidgets.QPushButton('Выбрать файл')
         self.btn15 = QtWidgets.QPushButton('Сохранить')
-        self.btn2 = QtWidgets.QPushButton('Печать')
+        self.btn2 = QtWidgets.QPushButton('&Печать')
         self.hbox.addWidget(self.btn1)
         self.hbox.addWidget(self.btn15)
         self.hbox.addWidget(self.btn2)
@@ -23,10 +25,9 @@ class Window(QtWidgets.QWidget):
 
         self.btn1.clicked.connect(self.load_data)
         self.btn2.clicked.connect(self.print_text)
-
+        self.btn15.clicked.connect(self.save)
         self.printer = QtPrintSupport.QPrinter()
         self.printer.setPageOrientation(QtGui.QPageLayout.Orientation.Landscape)
-
 
     def load_data(self):
         file_dialog = QtWidgets.QFileDialog()
@@ -34,7 +35,7 @@ class Window(QtWidgets.QWidget):
         file_dialog.setNameFilter('Текстовый документ,(*.txt)')
         file_dialog.exec()
         file = file_dialog.selectedFiles()[0]
-        with open(file,'r') as file:
+        with open(file, 'r') as file:
             text = file.read()
         self.textEdit.setText(text)
 
@@ -44,12 +45,12 @@ class Window(QtWidgets.QWidget):
         if print_dialog.exec() == QtWidgets.QDialog.DialogCode.Accepted:
             painter = QtGui.QPainter()
             painter.begin(self.printer)
-            painter.drawText(10,300,200,50,QtCore.Qt.AlignmentFlag.AlignCenter,self.textEdit.toPlainText())
+            painter.drawText(10, 300, 200, 50, QtCore.Qt.AlignmentFlag.AlignCenter, self.textEdit.toPlainText())
             painter.end()
 
     def save(self):
-        with open('nooname.txt','w+',encoding='utf-8') as file:
-            file.write(self.textEdit.text())
+        with open('nooname.txt', 'w', encoding='utf-8') as file:
+            file.write(self.textEdit.toPlainText())
 
 
 app = QtWidgets.QApplication(sys.argv)
